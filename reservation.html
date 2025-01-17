@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Détails de la Réservation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        margin: 0;
+        background-color: #fff;
+      }
+      h1 {
+        color: #007bff;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Détails de la Réservation</h1>
+    <table>
+      <tr>
+        <th>Champ</th>
+        <th>Valeur</th>
+      </tr>
+      <tr>
+        <td>Nom</td>
+        <td id="nom"></td>
+      </tr>
+      <tr>
+        <td>Prénom</td>
+        <td id="prenom"></td>
+      </tr>
+      <tr>
+        <td>Numéro de Réservation</td>
+        <td id="reservation"></td>
+      </tr>
+      <tr>
+        <td>Départ</td>
+        <td id="depart"></td>
+      </tr>
+      <tr>
+        <td>Arrivée</td>
+        <td id="arrivee"></td>
+      </tr>
+      <tr>
+        <td>Bagages</td>
+        <td id="bagages"></td>
+      </tr>
+      <tr>
+        <td>Fauteuil Roulant</td>
+        <td id="fauteuilRoulant"></td>
+      </tr>
+    </table>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      document.getElementById("nom").textContent =
+        params.get("nom") || "Non renseigné";
+      document.getElementById("prenom").textContent =
+        params.get("prenom") || "Non renseigné";
+      document.getElementById("reservation").textContent =
+        params.get("reservation") || "Non renseigné";
+      document.getElementById("depart").textContent =
+        params.get("depart") || "Non renseigné";
+      document.getElementById("arrivee").textContent =
+        params.get("arrivee") || "Non renseigné";
+      document.getElementById("bagages").textContent =
+        params.get("bagages") || "Non renseigné";
+      document.getElementById("fauteuilRoulant").textContent =
+        params.get("fauteuilRoulant") || "Non";
+    </script>
+  </body>
+</html>
