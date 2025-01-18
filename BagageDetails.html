@@ -56,31 +56,25 @@
     </div>
 
     <script>
-      console.log("Le script JavaScript est bien chargé."); // Ajoutez ce log en haut
       function getQueryParams() {
         const params = {};
         const queryString = window.location.search.slice(1);
         queryString.split("&").forEach((param) => {
           const [key, value] = param.split("=");
-          params[key] = decodeURIComponent(value || "");
+          params[key] = decodeURIComponent(value);
         });
-        console.log("Données extraites des paramètres :", params); // Log des données
         return params;
       }
 
       const queryParams = getQueryParams();
-      console.log("Paramètres extraits :", queryParams);
-
       document.getElementById("poids").textContent = queryParams.poids || "-";
       document.getElementById("description").textContent =
         queryParams.description || "-";
 
       const photo = queryParams.photo;
       if (photo) {
-        console.log("Photo détectée :", photo);
         document.getElementById("photo").src = photo;
       } else {
-        console.log("Aucune photo fournie.");
         document.getElementById("photo-container").style.display = "none";
       }
     </script>
