@@ -31,12 +31,6 @@
         border-radius: 8px;
         margin-top: 10px;
       }
-      .footer {
-        text-align: center;
-        margin-top: 20px;
-        font-size: 14px;
-        color: #555;
-      }
     </style>
   </head>
   <body>
@@ -49,9 +43,6 @@
           <p><strong>Photo :</strong></p>
           <img id="photo" src="" alt="Photo du bagage" />
         </div>
-      </div>
-      <div class="footer">
-        <p>QR Code généré avec l'application mobile.</p>
       </div>
     </div>
 
@@ -66,12 +57,12 @@
         return params;
       }
 
-      const queryParams = getQueryParams();
-      document.getElementById("poids").textContent = queryParams.poids || "-";
+      const params = getQueryParams();
+      document.getElementById("poids").textContent = params.poids || "-";
       document.getElementById("description").textContent =
-        queryParams.description || "-";
+        params.description || "-";
 
-      const photo = queryParams.photo;
+      const photo = params.photo;
       if (photo) {
         document.getElementById("photo").src = photo;
       } else {
