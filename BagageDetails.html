@@ -66,6 +66,7 @@
 
       const photo = params.image; // L'URL de l'image
       if (photo) {
+        console.log("URL de l'image :", photo); // Ajout pour vérifier l'URL
         document.getElementById("photo").src = photo;
       } else {
         document.getElementById("photo-container").style.display = "none";
