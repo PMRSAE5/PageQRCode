@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,12 +31,20 @@
         border-radius: 8px;
         margin-top: 10px;
       }
+      .error {
+        color: red;
+        text-align: center;
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <h1 class="title">Détails du Bagage</h1>
-      <div class="bagage-detail">
+      <div id="error-message" class="error" style="display: none">
+        Les informations du bagage sont manquantes ou invalides.
+      </div>
+      <div id="details-container" class="bagage-detail">
         <p><strong>Poids :</strong> <span id="poids">-</span> kg</p>
         <p><strong>Description :</strong> <span id="description">-</span></p>
         <div id="photo-container">
@@ -58,18 +66,28 @@
         return params;
       }
 
-      // Récupérer les paramètres
+      // Injecter les données dans la page
       const params = getQueryParams();
-      document.getElementById("poids").textContent = params.poids || "-";
-      document.getElementById("description").textContent =
-        params.description || "-";
+      const poids = params.poids || null;
+      const description = params.description || null;
+      const photo = params.image || null;
 
-      const photo = params.image; // L'URL de l'image
-      if (photo) {
-        console.log("URL de l'image :", photo); // Ajout pour vérifier l'URL
-        document.getElementById("photo").src = photo;
+      if (!poids && !description && !photo) {
+        // Afficher un message d'erreur si aucune donnée valide n'est disponible
+        document.getElementById("error-message").style.display = "block";
+        document.getElementById("details-container").style.display = "none";
       } else {
-        document.getElementById("photo-container").style.display = "none";
+        // Injecter les détails
+        document.getElementById("poids").textContent = poids || "Non spécifié";
+        document.getElementById("description").textContent =
+          description || "Non spécifiée";
+
+        // Gérer l'image
+        if (photo) {
+          document.getElementById("photo").src = photo;
+        } else {
+          document.getElementById("photo-container").style.display = "none";
+        }
       }
     </script>
   </body>
