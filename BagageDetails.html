@@ -31,6 +31,10 @@
         border-radius: 8px;
         margin-top: 10px;
       }
+      .error {
+        color: red;
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
@@ -44,6 +48,7 @@
           <img id="photo" src="" alt="Photo du bagage" />
         </div>
       </div>
+      <p id="error-message" class="error"></p>
     </div>
 
     <script>
@@ -66,10 +71,28 @@
 
       const photo = params.image; // Récupère l'URL de l'image depuis les paramètres de l'URL
       console.log("URL de l'image :", photo); // Affiche l'URL de l'image dans la console
+
+      // Vérifiez si l'URL de l'image est valide
       if (photo) {
-        document.getElementById("photo").src = photo;
+        // Chargez l'image et affichez un message d'erreur si elle ne fonctionne pas
+        const img = document.getElementById("photo");
+        img.src = photo;
+
+        img.onerror = () => {
+          console.error("Erreur lors du chargement de l'image :", photo);
+          document.getElementById("error-message").textContent =
+            "Impossible de charger l'image. Veuillez vérifier l'URL.";
+          document.getElementById("photo-container").style.display = "none";
+        };
+
+        img.onload = () => {
+          console.log("Image chargée avec succès :", photo);
+        };
       } else {
         document.getElementById("photo-container").style.display = "none";
+        document.getElementById("error-message").textContent =
+          "Aucune image trouvée.";
+        console.warn("Aucune URL d'image fournie dans les paramètres.");
       }
     </script>
   </body>
