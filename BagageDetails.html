@@ -31,80 +31,19 @@
         border-radius: 8px;
         margin-top: 10px;
       }
-      .error {
-        color: red;
-        font-weight: bold;
-      }
     </style>
   </head>
   <body>
     <div class="container">
       <h1 class="title">Détails du Bagage</h1>
       <div class="bagage-detail">
-        <p><strong>Poids :</strong> <span id="poids">-</span> kg</p>
-        <p><strong>Description :</strong> <span id="description">-</span></p>
+        <p><strong>Poids :</strong> 10 kg</p>
+        <p><strong>Description :</strong> ValiseRouge</p>
         <div id="photo-container">
           <p><strong>Photo :</strong></p>
-          <img id="photo" src="" alt="Photo du bagage" />
+          <img src="output.jpg" alt="Photo du bagage" />
         </div>
       </div>
-      <p id="error-message" class="error"></p>
     </div>
-
-    <script>
-      // Fonction pour extraire les paramètres de l'URL
-      function getQueryParams() {
-        const params = {};
-        const queryString = window.location.search.slice(1);
-        queryString.split("&").forEach((param) => {
-          const [key, value] = param.split("=");
-          params[key] = decodeURIComponent(value);
-        });
-        return params;
-      }
-
-      // Récupérer les paramètres
-      const params = getQueryParams();
-      document.getElementById("poids").textContent = params.poids || "-";
-      document.getElementById("description").textContent =
-        params.description || "-";
-
-      const photoUrl = params.image; // Récupère l'URL de l'image ou les données encodées
-      console.log("URL ou Base64 de l'image :", photoUrl);
-
-      if (photoUrl) {
-        const img = document.getElementById("photo");
-
-        // Vérifie si l'image est encodée en Base64 ou une URL normale
-        if (photoUrl.startsWith("data:image")) {
-          img.src = photoUrl; // Base64
-        } else if (
-          photoUrl.startsWith("http://") ||
-          photoUrl.startsWith("https://")
-        ) {
-          img.src = photoUrl; // URL
-        } else {
-          document.getElementById("error-message").textContent =
-            "Format de l'image non supporté.";
-        }
-
-        // Gestion des erreurs de chargement
-        img.onerror = () => {
-          console.error("Erreur lors du chargement de l'image :", photoUrl);
-          document.getElementById("error-message").textContent =
-            "Impossible de charger l'image. Veuillez vérifier l'URL.";
-          document.getElementById("photo-container").style.display = "none";
-        };
-
-        img.onload = () => {
-          console.log("Image chargée avec succès :", photoUrl);
-        };
-      } else {
-        document.getElementById("photo-container").style.display = "none";
-        document.getElementById("error-message").textContent =
-          "Aucune image trouvée.";
-        console.warn("Aucune URL d'image fournie dans les paramètres.");
-      }
-    </script>
   </body>
 </html>
