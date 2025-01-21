@@ -47,6 +47,7 @@
     </div>
 
     <script>
+      // Fonction pour extraire les paramètres de l'URL
       function getQueryParams() {
         const params = {};
         const queryString = window.location.search.slice(1);
@@ -57,12 +58,13 @@
         return params;
       }
 
+      // Récupérer les paramètres
       const params = getQueryParams();
       document.getElementById("poids").textContent = params.poids || "-";
       document.getElementById("description").textContent =
         params.description || "-";
 
-      const photo = params.photo;
+      const photo = params.image; // L'URL de l'image
       if (photo) {
         document.getElementById("photo").src = photo;
       } else {
