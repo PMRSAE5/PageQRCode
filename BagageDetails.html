@@ -69,23 +69,35 @@
       document.getElementById("description").textContent =
         params.description || "-";
 
-      const photo = params.image; // Récupère l'URL de l'image depuis les paramètres de l'URL
-      console.log("URL de l'image :", photo); // Affiche l'URL de l'image dans la console
+      const photoUrl = params.image; // Récupère l'URL de l'image ou les données encodées
+      console.log("URL ou Base64 de l'image :", photoUrl);
 
-      // Vérifiez si l'URL de l'image est valide
-      if (photo) {
+      if (photoUrl) {
         const img = document.getElementById("photo");
-        img.src = photo;
 
+        // Vérifie si l'image est encodée en Base64 ou une URL normale
+        if (photoUrl.startsWith("data:image")) {
+          img.src = photoUrl; // Base64
+        } else if (
+          photoUrl.startsWith("http://") ||
+          photoUrl.startsWith("https://")
+        ) {
+          img.src = photoUrl; // URL
+        } else {
+          document.getElementById("error-message").textContent =
+            "Format de l'image non supporté.";
+        }
+
+        // Gestion des erreurs de chargement
         img.onerror = () => {
-          console.error("Erreur lors du chargement de l'image :", photo);
+          console.error("Erreur lors du chargement de l'image :", photoUrl);
           document.getElementById("error-message").textContent =
             "Impossible de charger l'image. Veuillez vérifier l'URL.";
           document.getElementById("photo-container").style.display = "none";
         };
 
         img.onload = () => {
-          console.log("Image chargée avec succès :", photo);
+          console.log("Image chargée avec succès :", photoUrl);
         };
       } else {
         document.getElementById("photo-container").style.display = "none";
