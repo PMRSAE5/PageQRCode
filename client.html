@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compte Utilisateur</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f4f9;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .title {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+      }
+      .info {
+        margin: 10px 0;
+      }
+      .info strong {
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Compte Utilisateur</h1>
+
+      <div class="info">
+        <p><strong>Nom :</strong> <span id="name">-</span></p>
+        <p><strong>Prénom :</strong> <span id="surname">-</span></p>
+        <p><strong>Email :</strong> <span id="email">-</span></p>
+        <p><strong>Numéro :</strong> <span id="phone">-</span></p>
+        <p><strong>Handicap :</strong> <span id="handicap">-</span></p>
+        <p>
+          <strong>Date de naissance :</strong> <span id="birthdate">-</span>
+        </p>
+        <p>
+          <strong>Contact d'urgence (email) :</strong>
+          <span id="emergencyEmail">-</span>
+        </p>
+        <p>
+          <strong>Contact d'urgence (téléphone) :</strong>
+          <span id="emergencyPhone">-</span>
+        </p>
+      </div>
+
+      <h2 class="title">Bagages</h2>
+      <div id="bagages-container"></div>
+    </div>
+
+    <script>
+      function getQueryParams() {
+        const params = {};
+        const queryString = window.location.search.slice(1);
+        queryString.split("&").forEach((param) => {
+          const [key, value] = param.split("=");
+          params[key] = decodeURIComponent(value);
+        });
+        return params;
+      }
+
+      const params = getQueryParams();
+
+      // Injecter les informations utilisateur dans la page
+      document.getElementById("name").textContent = params.name || "-";
+      document.getElementById("surname").textContent = params.surname || "-";
+      document.getElementById("email").textContent = params.email || "-";
+      document.getElementById("phone").textContent = params.phone || "-";
+      document.getElementById("handicap").textContent = params.handicap || "-";
+      document.getElementById("birthdate").textContent =
+        params.birthdate || "-";
+      document.getElementById("emergencyEmail").textContent =
+        params.emergencyEmail || "-";
+      document.getElementById("emergencyPhone").textContent =
+        params.emergencyPhone || "-";
+
+      // Ajouter les bagages dynamiquement
+      const bagages = params.bagages ? JSON.parse(params.bagages) : [];
+      const bagagesContainer = document.getElementById("bagages-container");
+
+      if (bagages.length > 0) {
+        bagages.forEach((bagage, index) => {
+          const bagageDiv = document.createElement("div");
+          bagageDiv.style.border = "1px solid #ccc";
+          bagageDiv.style.margin = "10px 0";
+          bagageDiv.style.padding = "10px";
+          bagageDiv.style.borderRadius = "8px";
+          bagageDiv.innerHTML = `
+            <p><strong>Bagage ${index + 1} :</strong></p>
+            <p>Poids : ${bagage.weight} kg</p>
+            <p>Description : ${bagage.description}</p>
+            ${
+              bagage.photoUrl
+                ? `<p><strong>Photo :</strong></p><img src="${bagage.photoUrl}" style="max-width: 100%; border-radius: 8px;" />`
+                : ""
+            }
+          `;
+          bagagesContainer.appendChild(bagageDiv);
+        });
+      } else {
+        bagagesContainer.innerHTML = "<p>Aucun bagage trouvé.</p>";
+      }
+    </script>
+  </body>
+</html>
