@@ -54,9 +54,6 @@
           <span id="emergencyPhone">-</span>
         </p>
       </div>
-
-      <h2 class="title">Bagages</h2>
-      <div id="bagages-container"></div>
     </div>
 
     <script>
@@ -84,33 +81,6 @@
         params.emergencyEmail || "-";
       document.getElementById("emergencyPhone").textContent =
         params.emergencyPhone || "-";
-
-      // Ajouter les bagages dynamiquement
-      const bagages = params.bagages ? JSON.parse(params.bagages) : [];
-      const bagagesContainer = document.getElementById("bagages-container");
-
-      if (bagages.length > 0) {
-        bagages.forEach((bagage, index) => {
-          const bagageDiv = document.createElement("div");
-          bagageDiv.style.border = "1px solid #ccc";
-          bagageDiv.style.margin = "10px 0";
-          bagageDiv.style.padding = "10px";
-          bagageDiv.style.borderRadius = "8px";
-          bagageDiv.innerHTML = `
-            <p><strong>Bagage ${index + 1} :</strong></p>
-            <p>Poids : ${bagage.weight} kg</p>
-            <p>Description : ${bagage.description}</p>
-            ${
-              bagage.photoUrl
-                ? `<p><strong>Photo :</strong></p><img src="${bagage.photoUrl}" style="max-width: 100%; border-radius: 8px;" />`
-                : ""
-            }
-          `;
-          bagagesContainer.appendChild(bagageDiv);
-        });
-      } else {
-        bagagesContainer.innerHTML = "<p>Aucun bagage trouvé.</p>";
-      }
     </script>
   </body>
 </html>
