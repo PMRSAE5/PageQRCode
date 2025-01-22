@@ -72,15 +72,15 @@
       // Injecter les informations utilisateur dans la page
       document.getElementById("name").textContent = params.name || "-";
       document.getElementById("surname").textContent = params.surname || "-";
-      document.getElementById("email").textContent = params.email || "-";
-      document.getElementById("phone").textContent = params.phone || "-";
-      document.getElementById("handicap").textContent = params.handicap || "-";
-      document.getElementById("birthdate").textContent =
-        params.birthdate || "-";
+      document.getElementById("email").textContent = params.mail || "-";
+      document.getElementById("phone").textContent = params.num || "-";
+      document.getElementById("handicap").textContent =
+        params.handicap || "Non spécifié";
+      document.getElementById("birthdate").textContent = params.birth || "-";
+      document.getElementById("emergencyNuméro").textContent =
+        params.contactnum || "-";
       document.getElementById("emergencyEmail").textContent =
-        params.emergencyEmail || "-";
-      document.getElementById("emergencyPhone").textContent =
-        params.emergencyPhone || "-";
+        params.contact_mail || "-";
     </script>
   </body>
 </html>
